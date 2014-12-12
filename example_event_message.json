@@ -1,0 +1,36 @@
+{
+    "SignatureVersion": "1",
+    "Timestamp": "2014-12-12T15:02:38.213Z",
+    "Signature": "YbEQEfJe038hnFNQ3hh3S3d1lGDySSXLyTT9VY+Y3Rpe5XYHoX9xNmyoIrG/V4Fo95Ee6DYNI7QrPjuVgQzTdNm5SjvLgqmLGHtcTfH9wTN7FBnQNySpMrYcOFNJb2zwtA/Fkz3gwzirgThxWzELOhr6qcSdXj6AqxWha+RjsNb+kQqHtcqlT7vMaHePgSToSqyDYBhy3+5/FFFw7At5BZQtIC8KQZtacRcbjdkYKL9aukrJaUD/5hJEY3AWW3rHP9vkpKYFHrTz+21aej5DIppWVDYTBl0d0FCTlP+xkD965ypNkOMEvbmBzFmTuvxg68PDbIwC6qlxWKAtOYBq+A==",
+    "SigningCertURL": "https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-d6d679a1d18e95c2f9ffcf11f4f9e198.pem",
+    "MessageId": "b756841d-f0a8-5841-a3ef-c918f5660f61",
+    "Message": {
+        "RequestType": "Update",
+        "TopicArn": "arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources",
+        "ResponseURL": "https://cloudformation-custom-resource-response-euwest1.s3-eu-west-1.amazonaws.com/arn%3Aaws%3Acloudformation%3Aeu-west-1%3A202084488265%3Astack/cfn-cr-test/de22a510-8204-11e4-9a9b-5001411350b4%7CStackConfiguration%7C1e669e3b-3d68-4c38-a1d2-f4866b2ee9f2?AWSAccessKeyId=AKIAJ7MCS7PVEUOADEEA&Expires=1418403757&Signature=NWGdslsLZ0xvn9jG%2B7ofzYj8Sxg%3D",
+        "StackId": "arn:aws:cloudformation:eu-west-1:202084488265:stack/cfn-cr-test/de22a510-8204-11e4-9a9b-5001411350b4",
+        "RequestId": "1e669e3b-3d68-4c38-a1d2-f4866b2ee9f2",
+        "LogicalResourceId": "StackConfiguration",
+        "PhysicalResourceId": "arn:aws:cloudformation:eu-west-1:202084488265:stack/cfn-cr-test/de22a510-8204-11e4-9a9b-5001411350b4",
+        "ResourceType": "Custom::StackConfiguration",
+        "ResourceProperties": {
+            "ServiceToken": "arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources",
+            "NotificationEmail": "maxi.mustermann@immobilienscout24.de",
+            "DynamoDbTableName": "proxy_config_table",
+            "StackName": "cfn-cr-test"
+        },
+        "OldResourceProperties": {
+            "ServiceToken": "arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources",
+            "NotificationEmail": "max.mustermann@immobilienscout24.de",
+            "DynamoDbTableName": "proxy_config_table",
+            "StackName": "cfn-cr-test"
+        }
+    },
+    "UnsubscribeURL": "https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources:aa1048c5-b841-42fc-95e0-b3ea4c42e28c",
+    "Type": "Notification",
+    "TopicArn": "arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources",
+    "Subject": "AWS CloudFormation custom resource request"
+}
+
+
+"Message" : "{\\"RequestType\\":\\"Update\\",\\"TopicArn\\":\\"arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources\\",\\"ResponseURL\\":\\"https://cloudformation-custom-resource-response-euwest1.s3-eu-west-1.amazonaws.com/arn%3Aaws%3Acloudformation%3Aeu-west-1%3A202084488265%3Astack/cfn-cr-test/de22a510-8204-11e4-9a9b-5001411350b4%7CStackConfiguration%7C1e669e3b-3d68-4c38-a1d2-f4866b2ee9f2?AWSAccessKeyId=AKIAJ7MCS7PVEUOADEEA&Expires=1418403757&Signature=NWGdslsLZ0xvn9jG%2B7ofzYj8Sxg%3D\\",\\"StackId\\":\\"arn:aws:cloudformation:eu-west-1:202084488265:stack/cfn-cr-test/de22a510-8204-11e4-9a9b-5001411350b4\\",\\"RequestId\\":\\"1e669e3b-3d68-4c38-a1d2-f4866b2ee9f2\\",\\"LogicalResourceId\\":\\"StackConfiguration\\",\\"PhysicalResourceId\\":\\"arn:aws:cloudformation:eu-west-1:202084488265:stack/cfn-cr-test/de22a510-8204-11e4-9a9b-5001411350b4\\",\\"ResourceType\\":\\"Custom::StackConfiguration\\",\\"ResourceProperties\\":{\\"ServiceToken\\":\\"arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources\\",\\"NotificationEmail\\":\\"maxi.mustermann@immobilienscout24.de\\",\\"DynamoDbTableName\\":\\"proxy_config_table\\",\\"StackName\\":\\"cfn-cr-test\\"},\\"OldResourceProperties\\":{\\"ServiceToken\\":\\"arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources\\",\\"NotificationEmail\\":\\"max.mustermann@immobilienscout24.de\\",\\"DynamoDbTableName\\":\\"proxy_config_table\\",\\"StackName\\":\\"cfn-cr-test\\"}}",\n  "Timestamp" : "2014-12-12T15:02:38.213Z",\n  "SignatureVersion" : "1",\n  "Signature" : "YbEQEfJe038hnFNQ3hh3S3d1lGDySSXLyTT9VY+Y3Rpe5XYHoX9xNmyoIrG/V4Fo95Ee6DYNI7QrPjuVgQzTdNm5SjvLgqmLGHtcTfH9wTN7FBnQNySpMrYcOFNJb2zwtA/Fkz3gwzirgThxWzELOhr6qcSdXj6AqxWha+RjsNb+kQqHtcqlT7vMaHePgSToSqyDYBhy3+5/FFFw7At5BZQtIC8KQZtacRcbjdkYKL9aukrJaUD/5hJEY3AWW3rHP9vkpKYFHrTz+21aej5DIppWVDYTBl0d0FCTlP+xkD965ypNkOMEvbmBzFmTuvxg68PDbIwC6qlxWKAtOYBq+A==",\n  "SigningCertURL" : "https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-d6d679a1d18e95c2f9ffcf11f4f9e198.pem",\n  "UnsubscribeURL" : "https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources:aa1048c5-b841-42fc-95e0-b3ea4c42e28c"\n}'
