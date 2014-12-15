@@ -2,11 +2,18 @@ __author__ = 'mhoyer'
 
 from boto import sqs
 import boto
+import logging
 
 
 class SqsQueue(object):
 
     def __init__(self, region="eu-west-1"):
+        logging.basicConfig(format='%(asctime)s %(levelname)s %(module)s: %(message)s',
+                            datefmt='%d.%m.%Y %H:%M:%S',
+                            level=logging.INFO)
+        self.logger = logging.getLogger(__name__)
+        logging.getLogger('boto').setLevel(logging.ERROR)
+
         self.conn = sqs.connect_to_region(region)
         self.queue = self._get_queue_instance("is24-cfn-custom-resources")
 

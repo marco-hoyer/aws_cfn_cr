@@ -1,57 +1,60 @@
 __author__ = 'mhoyer'
 
-from threading import Thread
+import sys
 import logging
-
+from threading import Thread
 from entities.custom_resource import CustomResourceEvent
 from connectors.sqs import SqsQueue
-from aws_cfn_custom_resource_handler.event_handlers.StackConfiguration import StackConfigurationEventHandler
+from aws_cfn_custom_resource_handler.event_handler import CloudFormationCustomEventHandler
 
 
 class EventObserver(object):
 
+    failed_event_threshold = 2
+    failed_events = {}
+
     def __init__(self):
-        logging.basicConfig(format='%(asctime)s %(levelname)s %(module)s: %(message)s', datefmt='%d.%m.%Y %H:%M:%S',level=logging.INFO)
+        logging.basicConfig(format='%(asctime)s %(levelname)s %(module)s: %(message)s',
+                            datefmt='%d.%m.%Y %H:%M:%S',
+                            level=logging.DEBUG)
         self.logger = logging.getLogger(__name__)
 
         self.sqs_queue = SqsQueue()
 
+    def increment_failure_counter(self, event):
+        if event.id in self.failed_events:
+            self.failed_events[event.id] += 1
+        else:
+            self.failed_events[event.id] = 1
+
+        return self.failed_events[event.id]
+
+    def get_resource_type_name(self, event):
+        return event.get_property("ResourceType").lstrip("Custom::")
 
     def dispatch_event(self, sqs_message):
         event = CustomResourceEvent(sqs_message)
 
-        self.logger.info("Handling request with id: {0}".format(event.get_property("RequestId")))
-        resource_type = event.get_property("ResourceType").lstrip("Custom::")
+        self.logger.info("Handling event: {0}".format(event.id))
+        self.logger.debug(event)
+        resource_type = self.get_resource_type_name(event)
 
-        if resource_type == "StackConfiguration":
-            self.logger.info("Found StackConfigurationHandler for resource-type: {0}".format(resource_type))
-            eventhandler = StackConfigurationEventHandler(event)
+        # TODO: add plugin mechanism executing handlers based on resource_type name
+        try:
+            eventhandler = CloudFormationCustomEventHandler(event)
             eventhandler.handle_event()
+        except Exception as e:
 
-        # response_dict = {}
-        # response_dict["Status"] = "SUCCESS"
-        # response_dict["StackId"] = stack_id
-        # response_dict["RequestId"] = request_id
-        # if physical_resource_id:
-        #     response_dict["PhysicalResourceId"] = physical_resource_id
-        # else:
-        #     response_dict["PhysicalResourceId"] = stack_id
-        # response_dict["LogicalResourceId"] = logical_resource_id
-        #
-        # response = S3Bucket(s3_response_url)
-        # self.logger.info("RESPONSE URL: " + str(s3_response_url))
-        # self.logger.info("RESPONSE: " + str(response_dict))
-        # self.logger.info("RESPONSE TYPE: " + str(type(response_dict)))
-        #
-        # try:
-        #     response.put(response_dict)
-        # except Exception as e:
-        #     self.logger.error("Couldn't put response to s3 bucket")
-        #     self.logger.exception(e)
+            failure_count = self.increment_failure_counter(event)
+            self.logger.error("Couldn't handle event: "
+                              "{0}, error was {1} (try {2}/{3})".format(event, str(e), failure_count,
+                                                                        self.failed_event_threshold))
 
-        #TODO: determine if event should always get deleted from queue or only if the response was successful
-        #self.sqs_queue.delete_message(event)
-        #self.logger.info("Deleted event from queue: " + str(event))
+            if failure_count < self.failed_event_threshold:
+                sys.exit(1)
+
+        self.sqs_queue.delete_message(sqs_message)
+        self.logger.info("Deleted event from queue: {0}".format(event.id))
 
     def event_loop(self):
         while True:
