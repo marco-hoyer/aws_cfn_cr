@@ -1,0 +1,40 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description" : "Describes the Shared Proxy Stack including ELB, security groups and autoscaling group.",
+    "Parameters": {
+        "NotificationEmail" : {
+            "Description" : "Email to send event notifications / alerts to",
+            "Default": "marco.hoyer@immobilienscout24.de",
+            "Type" : "String"
+        },
+        "CustomResourceSnsTopic" : {
+            "Description" : "SNS Topic for Cloudformation custom resource messages",
+            "Type" : "String",
+            "AllowedPattern": "^arn:aws:sns:.+",
+            "Default": "arn:aws:sns:eu-west-1:202084488265:is24-cfn-custom-resources"
+        }
+    },
+    "Resources": {
+        "StackConfiguration": {
+            "Type": "Custom::StackConfiguration",
+            "Version" : "1.0",
+            "Properties" : {
+                "ServiceToken": {"Ref": "CustomResourceSnsTopic"},
+                "NotificationEmail": {"Ref": "NotificationEmail"},
+                "StackName" : {"Ref": "AWS::StackName"},
+                "DynamoDbTableName": "proxy_config_table"
+            }
+        },
+        "ServiceEndpoint": {
+            "Type": "Custom::ServiceEndpoint",
+            "Version" : "1.0",
+            "Properties" : {
+                "ServiceToken": {"Ref": "CustomResourceSnsTopic"},
+                "Name" : {"Ref": "AWS::StackName"},
+                "Region": {"Ref": "AWS::Region"},
+                "ServiceAddress": "my-super-service.amazon.internal",
+                "ServicePort": "3128"
+            }
+        }
+    }
+}
