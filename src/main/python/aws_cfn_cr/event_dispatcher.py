@@ -12,7 +12,7 @@ from connectors.sqs import SqsQueue
 
 class EventDispatcher(object):
 
-    failed_event_threshold = 2
+    failed_event_threshold = 10
     failed_events = {}
 
     def __init__(self):
@@ -36,10 +36,14 @@ class EventDispatcher(object):
 
     def get_plugin_by_name(self, name):
         plugin = self.plugin_manager.getPluginByName(name)
+
         if not plugin:
+            self.logger.debug("No plugin found, using Default!")
             plugin = self.plugin_manager.getPluginByName("Default")
 
+        assert plugin, "No handler plugin loaded for resource name {0}".format(name)
         self.logger.info("Choose {0} handler for resource name {1}".format(plugin.name, name))
+
         return plugin
 
     def increment_failure_counter(self, event):

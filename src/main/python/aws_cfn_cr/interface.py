@@ -1,6 +1,6 @@
 __author__ = 'mhoyer'
 
-from aws_cfn_custom_resource_handler.entities.custom_resource import CustomResourceResponse
+from aws_cfn_cr.entities.custom_resource import CustomResourceResponse
 from connectors.s3 import S3Bucket
 import logging
 from yapsy.IPlugin import IPlugin
@@ -15,7 +15,7 @@ class BaseCustomResourceEventHandler(IPlugin):
         self.logger = logging.getLogger(__name__)
 
     def handle_event(self, event):
-        return {}
+        pass
 
     def send_response(self, status, event, data, physical_resource_id=None):
         response_bucket = S3Bucket(event.get_property("ResponseURL"))

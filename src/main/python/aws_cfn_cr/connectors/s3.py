@@ -16,7 +16,6 @@ class S3Bucket(object):
         self.logger = logging.getLogger(__name__)
         logging.getLogger("requests").setLevel(logging.WARNING)
 
-
     def put(self, response):
         self.logger.debug("Sending response with properties: {0}".format(response.properties))
         requests.put(self.url, data=json.dumps(response.properties)).raise_for_status()

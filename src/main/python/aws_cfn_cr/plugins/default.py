@@ -1,6 +1,6 @@
 __author__ = 'mhoyer'
 
-import aws_cfn_custom_resource_handler.interface as interface
+import aws_cfn_cr.interface as interface
 
 
 class DefaultCustomResourceEventHandler(interface.BaseCustomResourceEventHandler):

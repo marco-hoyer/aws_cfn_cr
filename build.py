@@ -8,7 +8,7 @@ use_plugin("python.coverage")
 use_plugin("python.distutils")
 
 
-name = "aws_cfn_custom_resource_handler"
+name = "aws_cfn_cr"
 default_task = "publish"
 
 @init
