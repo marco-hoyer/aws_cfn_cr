@@ -1,0 +1,9 @@
+[Core]
+Name = ProxyConfiguration
+Module = proxy_configuration
+
+[Documentation]
+Author = Marco Hoyer
+Version = 0.1
+Website = http://www.immobilienscout24.de
+Description = Default handler logging something and responding a minimum.

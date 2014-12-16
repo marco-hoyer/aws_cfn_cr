@@ -17,11 +17,7 @@ class CloudFormationCustomEventHandler(object):
         self.event = custom_resource_event
         self.response_bucket = S3Bucket(self.event.get_property("ResponseURL"))
 
-    def convert_properties_to_kv_string(self, properties):
-        kv_string = ""
-        for key in properties:
-            kv_string += "{0}={1}\n".format(key, properties[key])
-        return kv_string
+
 
     def handle_event(self):
         self.logger.info("Handling request: " + self.event.id)
@@ -51,3 +47,17 @@ class BaseCustomResourceEventHandler(IPlugin):
 
     def handle_event(self, event):
         return {}
+
+    def send_response(self, status, event, data, physical_resource_id=None):
+        response_bucket = S3Bucket(event.get_property("ResponseURL"))
+
+        self.logger.info("Sending response for: " + event.id)
+        response = CustomResourceResponse(status,
+                                          event.get_property("LogicalResourceId"),
+                                          physical_resource_id,
+                                          event.get_property("StackId"),
+                                          event.get_property("RequestId"),
+                                          data)
+
+        self.logger.debug(response)
+        response_bucket.put(response)

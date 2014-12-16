@@ -13,7 +13,7 @@ class CustomResourceEvent(object):
         self._validate()
 
     def __repr__(self):
-        return "REQUEST: action={0}, resource={1}, stack={2} (request-id={3})".format(self.get_property("RequestType"),
+        return "action={0}, resource={1}, stack={2} (request-id={3})".format(self.get_property("RequestType"),
                                                                              self.get_property("LogicalResourceId"),
                                                                              self.get_property("StackId"),
                                                                              self.get_property("RequestId"))
@@ -61,7 +61,7 @@ class CustomResourceResponse(object):
         self._validate()
 
     def __repr__(self):
-        return "RESPONSE: status={0}, resource={1}, stack={2} (request-id={3})".format(self.get_property("Status"),
+        return "status={0}, resource={1}, stack={2} (request-id={3})".format(self.get_property("Status"),
                                                                              self.get_property("LogicalResourceId"),
                                                                              self.get_property("StackId"),
                                                                              self.get_property("RequestId"))
