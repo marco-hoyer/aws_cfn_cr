@@ -3,6 +3,7 @@ __author__ = 'mhoyer'
 from aws_cfn_custom_resource_handler.entities.custom_resource import CustomResourceResponse
 from connectors.s3 import S3Bucket
 import logging
+from yapsy.IPlugin import IPlugin
 
 
 class CloudFormationCustomEventHandler(object):
@@ -38,3 +39,15 @@ class CloudFormationCustomEventHandler(object):
 
         self.logger.debug(response)
         self.response_bucket.put(response)
+
+
+class BaseCustomResourceEventHandler(IPlugin):
+
+    def __init__(self):
+        logging.basicConfig(format='%(asctime)s %(levelname)s %(module)s: %(message)s',
+                            datefmt='%d.%m.%Y %H:%M:%S',
+                            level=logging.DEBUG)
+        self.logger = logging.getLogger(__name__)
+
+    def handle_event(self, event):
+        return {}

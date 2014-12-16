@@ -1,0 +1,9 @@
+[Core]
+Name = ServiceEndpoint
+Module = service_endpoint
+
+[Documentation]
+Author = Marco Hoyer
+Version = 0.1
+Website = http://www.immobilienscout24.de
+Description = Handles ServiceEndpoint custom resources to create etcd service-discovery entries

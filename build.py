@@ -11,7 +11,12 @@ use_plugin("python.distutils")
 name = "aws_cfn_custom_resource_handler"
 default_task = "publish"
 
-
 @init
-def set_properties(project):
-    pass
+def initialize(project):
+
+    project.build_depends_on("mock")
+    project.build_depends_on("unittest2")
+    project.depends_on("yapsy")
+    project.depends_on("boto")
+    project.depends_on("requests")
+    project.depends_on("json")
